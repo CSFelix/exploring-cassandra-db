@@ -1,0 +1,26 @@
+# Documentation: https://cassandra.apache.org/doc/latest/cassandra/managing/configuration/cass_yaml_file.html
+#
+# - variables to replace in `cassandra-zero.yaml`;
+# - after the changes, make a two copies of `cassandra-zero.yaml`: `cassandra-one.yaml` & `cassandra-two.yaml`.
+#
+
+# ---- Authentication & Authorization ----
+authenticator:
+  class_name: PasswordAuthenticator
+
+authorizer:
+  class_name: CassandraAuthorizer
+
+role_manager:
+  class_name: CassandraRoleManager
+
+# ---- Main Settings ----
+num_tokens: 16
+partitioner: org.apache.cassandra.dht.Murmur3Partitioner
+endpoint_snitch: GossipingPropertyFileSnitch
+
+# ---- Change Data Capture (CDC) ----
+cdc_enabled: false
+# cdc_raw_directory: /var/lib/cassandra/cdc_raw
+# cdc_total_space: 4096MiB
+# cdc_block_writes: false
