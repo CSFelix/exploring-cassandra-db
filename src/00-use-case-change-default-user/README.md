@@ -18,7 +18,7 @@ cqlsh -u cassandra
 
 > Check Cluster and Nodes (Peers)
 
-```sql
+```cql
 SELECT cluster_name, cql_version, data_center, partitioner, rack FROM system.local; # cluster
 
 SELECT peer, data_center, rack, schema_version FROM system.peers_v2; # recognized nodes in the cluster by the context cluster
@@ -40,7 +40,7 @@ nodetool ring
 
 - https://cassandra.apache.org/doc/latest/cassandra/tooling/hash-password.html
 
-```sql
+```cql
 LIST ROLES;
 LIST USERS;
 SELECT * FROM system_auth.roles;

@@ -40,7 +40,7 @@
 
 - https://cassandra.apache.org/doc/latest/cassandra/reference/cql-commands/create-table.html
 
-```sql
+```cql
 CREATE KEYSPACE IF NOT EXISTS youtube
 WITH replication = { 'class': 'NetworkTopologyStrategy', 'replication_factor': 3, 'datacenter-1': 3 } -- added 'datacenter-1' key-value just to know it is possible to set up replciation_factor per datacenter
  AND durable_writes = true;
@@ -81,7 +81,7 @@ WITH CLUSTERING ORDER BY (comment_uuid DESC)
 
 - https://cassandra.apache.org/doc/stable/cassandra/architecture/dynamo.html
 
-```sql
+```cql
 CONSISTENCY QUORUM;
 
 INSERT INTO comment_by_video_uuid(
@@ -134,7 +134,7 @@ cqlsh -u admin -k youtube_video < comments-seed.cql
 rm comments-seed.cql
 ```
 
-```sql
+```cql
 SELECT DISTINCT video_uuid FROM comment_by_video_uuid;
 SELECT COUNT(*) FROM comment_by_video_uuid GROUP BY video_uuid;
 ```
@@ -143,7 +143,7 @@ SELECT COUNT(*) FROM comment_by_video_uuid GROUP BY video_uuid;
 
 > Fetching Data
 
-```sql
+```cql
 -- Without Pagination (page: 1)
 SELECT *
 FROM comment_by_video_uuid

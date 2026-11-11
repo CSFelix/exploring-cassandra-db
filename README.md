@@ -21,6 +21,8 @@ All keyspaces contain `replication_factor` following the `Network Topology` to a
 
 Every column of type `UUID` will only store `UUIDv7`. This rule is not configurable on database level, we must to apply it on application level.
 
+Oh, and do not forget to unzip `./src/01-use-case-youtube-comments-seed.cql` before running the use case 1 scripts. Since the file is too large for github commit, I needed to compress it.
+
 ---
 
 ## 2. Contents
