@@ -198,8 +198,8 @@ LIMIT 200;
 -- ---- With Pagination ----
 SELECT *
 FROM chat_message
-WHERE chat_uuid = ?
-  AND message_uuid < ?
+WHERE chat_uuid = 01a1d25d-9b2c-774e-a1e0-ebf1b1eb1aa7
+  AND message_uuid < 01a1db1d-88bd-758d-a20f-56fb8107d9ff
 ORDER BY message_uuid DESC
 LIMIT 200;
 ```
