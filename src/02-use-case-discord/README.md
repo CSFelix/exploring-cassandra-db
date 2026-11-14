@@ -8,6 +8,7 @@
   \ status
   \ is_edited
   \ is_pinned
+  \ replyed_message_uuid
 
   ---- User ----
   \ uuid
@@ -41,6 +42,7 @@
   \ message_uuid
   \ server_uuid
   \ message_type
+  \ message_media_url
   \ message_content
   \ message_properties
   \ users
@@ -72,6 +74,7 @@ CREATE TYPE IF NOT EXISTS message_property (
   , from_user_uuid UUID
   , is_edited BOOLEAN
   , is_pinned BOOLEAN
+  , replyed_message_uuid UUID
 );
 
 CREATE TYPE IF NOT EXISTS user (
@@ -97,6 +100,7 @@ CREATE TABLE IF NOT EXISTS chat_message (
   , message_uuid UUID
   , server_uuid UUID
   , message_type TEXT
+  , message_media_url TEXT
   , message_content TEXT
   , message_properties message_property
   , users LIST<FROZEN<user>>
@@ -119,6 +123,7 @@ INSERT INTO chat_message (
   , message_uuid
   , server_uuid
   , message_type
+  , message_media_url
   , message_content
   , message_properties
   , users
@@ -130,12 +135,14 @@ VALUES (
   , 01a1d25d-9b2c-774e-a1e0-efaa57c7f232
   , 01a1d25d-9b2c-774e-a1e0-f2cf721dbee5
   , 'TEXT'
-  , 'Hey there, how\'s it going?'
+  , NULL
+  , 'Hey there, how''s it going?'
   , {
     status: 'SENT'
     , from_user_uuid: 01a1d25d-9b2c-774e-a1e0-f60fc119f971
     , is_edited: FALSE
     , is_pinned: FALSE
+    , replyed_message_uuid: NULL
   }
   , [
     {
@@ -162,4 +169,37 @@ VALUES (
     , deletion_reason: NULL
   }
 );
+```
+
+---
+
+> Populate Table
+
+```bash
+docker cp ./messages-seed.cql cassandra-zero:/tmp/messages-seed.cql
+docker exec -it cassandra-zero bash
+cd tmp
+cqlsh -u admin -k discord < messages_seed.cql
+rm messages_seed.cql
+```
+
+---
+
+> Fetching Data
+
+```cql
+-- ---- Without Pagination ----
+SELECT *
+FROM chat_message
+WHERE chat_uuid = ?
+ORDER BY message_uuid DESC
+LIMIT 200;
+
+-- ---- With Pagination ----
+SELECT *
+FROM chat_message
+WHERE chat_uuid = ?
+  AND message_uuid < ?
+ORDER BY message_uuid DESC
+LIMIT 200;
 ```

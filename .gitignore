@@ -1,2 +1,3 @@
 data
 src/01-use-case-youtube/comments-seed.cql
+src/02-use-case-discord/messages-seed.cql

@@ -155,7 +155,7 @@ LIMIT 50;
 SELECT *
 FROM comment_by_video_uuid
 WHERE video_uuid = 01a1c4fa-85af-7442-99d7-90cb1df0fad0
-	AND comment_uuid > 01a1c4fa-9b31-7159-8e93-45b1d7d2f4c7
+	AND comment_uuid < 01a1c4fa-9b31-7159-8e93-45b1d7d2f4c7
 ORDER BY comment_uuid DESC -- ASC | DESC
 LIMIT 50;
 ```
