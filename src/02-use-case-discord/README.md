@@ -191,7 +191,7 @@ rm messages_seed.cql
 -- ---- Without Pagination ----
 SELECT *
 FROM chat_message
-WHERE chat_uuid = ?
+WHERE chat_uuid = 01a1d25d-9b2c-774e-a1e0-ebf1b1eb1aa7
 ORDER BY message_uuid DESC
 LIMIT 200;
 
